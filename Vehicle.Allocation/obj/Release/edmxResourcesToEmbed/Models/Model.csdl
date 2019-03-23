@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="vaAccounts" EntityType="Model.vaAccount" />
+    <EntitySet Name="vaAccountTypes" EntityType="Model.vaAccountType" />
+    <EntitySet Name="vaOffers" EntityType="Model.vaOffer" />
+    <AssociationSet Name="FK__vaAccount__TypeF__6DBACB2B" Association="Model.FK__vaAccount__TypeF__6DBACB2B">
+      <End Role="vaAccountType" EntitySet="vaAccountTypes" />
+      <End Role="vaAccount" EntitySet="vaAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__vaOffer__Account__7467C8BA" Association="Model.FK__vaOffer__Account__7467C8BA">
+      <End Role="vaAccount" EntitySet="vaAccounts" />
+      <End Role="vaOffer" EntitySet="vaOffers" />
+    </AssociationSet>
+    <EntitySet Name="vaRequests" EntityType="Model.vaRequest" />
+    <AssociationSet Name="FK__vaRequest__Accou__077A9D2E" Association="Model.FK__vaRequest__Accou__077A9D2E">
+      <End Role="vaAccount" EntitySet="vaAccounts" />
+      <End Role="vaRequest" EntitySet="vaRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__vaOffer__Request__0A5709D9" Association="Model.FK__vaOffer__Request__0A5709D9">
+      <End Role="vaRequest" EntitySet="vaRequests" />
+      <End Role="vaOffer" EntitySet="vaOffers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="vaAccount">
+    <Key>
+      <PropertyRef Name="PK" />
+    </Key>
+    <Property Name="PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeFK" Type="Int32" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Field" Type="String" Nullable="false" MaxLength="125" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Surname" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="vaAccountType" Relationship="Model.FK__vaAccount__TypeF__6DBACB2B" FromRole="vaAccount" ToRole="vaAccountType" />
+    <NavigationProperty Name="vaOffers" Relationship="Model.FK__vaOffer__Account__7467C8BA" FromRole="vaAccount" ToRole="vaOffer" />
+    <NavigationProperty Name="vaRequests" Relationship="Model.FK__vaRequest__Accou__077A9D2E" FromRole="vaAccount" ToRole="vaRequest" />
+  </EntityType>
+  <EntityType Name="vaAccountType">
+    <Key>
+      <PropertyRef Name="PK" />
+    </Key>
+    <Property Name="PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="vaAccounts" Relationship="Model.FK__vaAccount__TypeF__6DBACB2B" FromRole="vaAccountType" ToRole="vaAccount" />
+  </EntityType>
+  <EntityType Name="vaOffer">
+    <Key>
+      <PropertyRef Name="PK" />
+    </Key>
+    <Property Name="PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestFK" Type="Int32" />
+    <Property Name="AccountFK" Type="Int32" />
+    <Property Name="Fee" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Confirmed" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="vaAccount" Relationship="Model.FK__vaOffer__Account__7467C8BA" FromRole="vaOffer" ToRole="vaAccount" />
+    <NavigationProperty Name="vaRequest" Relationship="Model.FK__vaOffer__Request__0A5709D9" FromRole="vaOffer" ToRole="vaRequest" />
+  </EntityType>
+  <Association Name="FK__vaAccount__TypeF__6DBACB2B">
+    <End Type="Model.vaAccountType" Role="vaAccountType" Multiplicity="0..1" />
+    <End Type="Model.vaAccount" Role="vaAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vaAccountType">
+        <PropertyRef Name="PK" />
+      </Principal>
+      <Dependent Role="vaAccount">
+        <PropertyRef Name="TypeFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__vaOffer__Account__7467C8BA">
+    <End Type="Model.vaAccount" Role="vaAccount" Multiplicity="0..1" />
+    <End Type="Model.vaOffer" Role="vaOffer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vaAccount">
+        <PropertyRef Name="PK" />
+      </Principal>
+      <Dependent Role="vaOffer">
+        <PropertyRef Name="AccountFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="vaRequest">
+    <Key>
+      <PropertyRef Name="PK" />
+    </Key>
+    <Property Name="PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AccountFK" Type="Int32" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Population" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="From" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="To" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Confirmed" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="vaAccount" Relationship="Model.FK__vaRequest__Accou__077A9D2E" FromRole="vaRequest" ToRole="vaAccount" />
+    <NavigationProperty Name="vaOffers" Relationship="Model.FK__vaOffer__Request__0A5709D9" FromRole="vaRequest" ToRole="vaOffer" />
+  </EntityType>
+  <Association Name="FK__vaRequest__Accou__077A9D2E">
+    <End Type="Model.vaAccount" Role="vaAccount" Multiplicity="0..1" />
+    <End Type="Model.vaRequest" Role="vaRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vaAccount">
+        <PropertyRef Name="PK" />
+      </Principal>
+      <Dependent Role="vaRequest">
+        <PropertyRef Name="AccountFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__vaOffer__Request__0A5709D9">
+    <End Type="Model.vaRequest" Role="vaRequest" Multiplicity="0..1" />
+    <End Type="Model.vaOffer" Role="vaOffer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="vaRequest">
+        <PropertyRef Name="PK" />
+      </Principal>
+      <Dependent Role="vaOffer">
+        <PropertyRef Name="RequestFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

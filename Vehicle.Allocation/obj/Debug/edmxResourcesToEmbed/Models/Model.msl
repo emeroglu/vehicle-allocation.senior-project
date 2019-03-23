@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="vaAccounts">
+      <EntityTypeMapping TypeName="Model.vaAccount">
+        <MappingFragment StoreEntitySet="vaAccount">
+          <ScalarProperty Name="PK" ColumnName="PK" />
+          <ScalarProperty Name="TypeFK" ColumnName="TypeFK" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Field" ColumnName="Field" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vaAccountTypes">
+      <EntityTypeMapping TypeName="Model.vaAccountType">
+        <MappingFragment StoreEntitySet="vaAccountType">
+          <ScalarProperty Name="PK" ColumnName="PK" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vaOffers">
+      <EntityTypeMapping TypeName="Model.vaOffer">
+        <MappingFragment StoreEntitySet="vaOffer">
+          <ScalarProperty Name="PK" ColumnName="PK" />
+          <ScalarProperty Name="RequestFK" ColumnName="RequestFK" />
+          <ScalarProperty Name="AccountFK" ColumnName="AccountFK" />
+          <ScalarProperty Name="Fee" ColumnName="Fee" />
+          <ScalarProperty Name="Confirmed" ColumnName="Confirmed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vaRequests">
+      <EntityTypeMapping TypeName="Model.vaRequest">
+        <MappingFragment StoreEntitySet="vaRequest">
+          <ScalarProperty Name="PK" ColumnName="PK" />
+          <ScalarProperty Name="AccountFK" ColumnName="AccountFK" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Population" ColumnName="Population" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="From" ColumnName="From" />
+          <ScalarProperty Name="To" ColumnName="To" />
+          <ScalarProperty Name="Confirmed" ColumnName="Confirmed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
